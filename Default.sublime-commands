@@ -1,3 +1,4 @@
 [
-  { "caption": "Octopress: New Post", "command": "new_post" }
+  { "caption": "Octopress: New Post", "command": "new_post" },
+  { "caption": "Octopress: New Page", "command": "new_page" }
 ]

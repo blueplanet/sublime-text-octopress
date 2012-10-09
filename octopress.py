@@ -1,12 +1,11 @@
+import os
 import sublime
 import sublime_plugin
+import subprocess
+import thread
 
 
-class NewPostCommand(sublime_plugin.WindowCommand):
-
-    def run(self):
-        self.window.show_input_panel('Enter Name Of New Post', "", self.on_done, None, None)
-        self.panel = self.window.get_output_panel("exec")
+class OctopressCommand():
 
     def load_config(self):
         octo_set = sublime.load_settings("octopress.sublime-settings")
@@ -17,23 +16,56 @@ class NewPostCommand(sublime_plugin.WindowCommand):
 
         self.rake_command = octo_set.get("rake_command")
 
-    def on_done(self, text):
+    def exec_comman(self, command):
         self.load_config()
 
-        self.window.run_command("exec", {
-            "cmd": [self.rake_command + " \"new_post[" + text + "]\""],
-            "shell": True,
-            "working_dir": self.octopress_path
-        })
+        os.chdir(self.octopress_path)
 
-        self.window.run_command("hide_panel")
-        sublime.set_timeout(self.show_new_file, 1000)
+        self.proc = subprocess.Popen(self.rake_command + command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
-    def show_new_file(self):
-        region_all = sublime.Region(0, self.panel.size())
-        line2 = self.panel.substr(region_all).split("\n")[1]
-        if line2.startswith("Creating new post: "):
-            new_file = line2.replace("Creating new post: ", "")
-            self.window.open_file(self.octopress_path + new_file)
-        else:
-            self.window.run_command("show_panel", {"panel": "output.exec"})
+        thread.start_new_thread(self.read_stdout, ())
+
+    def read_stdout(self):
+        while True:
+            data = os.read(self.proc.stdout.fileno(), 2 ** 15)
+
+            if data != "":
+                print "octopress exec output : " + str(data)
+            else:
+                self.proc.stdout.close()
+                print "octopress exec end."
+                break
+
+    def read_stderr(self):
+        while True:
+            data = os.read(self.proc.stderr.fileno(), 2 ** 15)
+
+            if data != "":
+                print "octopress exec error : " + str(data)
+            else:
+                self.proc.stderr.close()
+                break
+
+
+class NewPostCommand(sublime_plugin.WindowCommand, OctopressCommand):
+    def run(self):
+        self.window.show_input_panel("Enter Name Of New Post", "", self.on_done, None, None)
+
+        print "octopress exec start."
+
+    def on_done(self, text):
+        command = " \"new_post[%s]\"" % text
+
+        self.exec_comman(command)
+
+
+class NewPageCommand(sublime_plugin.WindowCommand, OctopressCommand):
+    def run(self):
+        self.window.show_input_panel("Enter Name Of New Page", "", self.on_done, None, None)
+
+        print "octopress exec start."
+
+    def on_done(self, text):
+        command = " \"new_page[%s]\"" % text
+
+        self.exec_comman(command)
