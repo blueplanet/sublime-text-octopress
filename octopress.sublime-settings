@@ -1,4 +1,5 @@
 {
+  // "octopress_path": "/Users/gyo/blog",
   "octopress_path": "/tmp/blog",
   "rake_command": "rake"
 }
