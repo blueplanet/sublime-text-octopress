@@ -7,7 +7,7 @@ import subprocess
 import thread
 
 
-class OctopressCommand():
+class OctopressCommand(sublime_plugin.WindowCommand):
 
     def exec_command(self, command):
         print "octopress exec start."
@@ -45,6 +45,7 @@ class OctopressCommand():
                 print "Open File : " + self.file
                 self.window.open_file(self.octopress_path + self.file)
         else:
+            sublime.status_message("")
             sublime.error_message("Octopress exec failed. Please check octopress env, and try argin.\n\nYou can check exec log in sublime console.")
 
     def read_stdout(self):
@@ -56,8 +57,8 @@ class OctopressCommand():
             if data != "":
                 print data
 
-                if self.exec_result and data.startswith(self.exec_result):
-                    self.file = data.split(os.linesep)[0].replace(self.exec_result, "")
+                if self.check_str and data.startswith(self.check_str):
+                    self.file = data.split(os.linesep)[0].replace(self.check_str, "")
 
                 self.output += data
             else:
@@ -79,31 +80,31 @@ class OctopressCommand():
                 break
 
 
-class NewPostCommand(sublime_plugin.WindowCommand, OctopressCommand):
+class NewPostCommand(OctopressCommand):
     def run(self):
         self.window.show_input_panel("Enter Name Of New Post", "", self.on_done, None, None)
 
     def on_done(self, text):
         command = " \"new_post[%s]\"" % text
 
-        self.exec_result = "Creating new post: "
+        self.check_str = "Creating new post: "
         self.exec_command(command)
 
 
-class NewPageCommand(sublime_plugin.WindowCommand, OctopressCommand):
+class NewPageCommand(OctopressCommand):
     def run(self):
         self.window.show_input_panel("Enter Name Of New Page", "", self.on_done, None, None)
 
     def on_done(self, text):
         command = " \"new_page[%s]\"" % text
 
-        self.exec_result = "Creating new page: "
+        self.check_str = "Creating new page: "
         self.exec_command(command)
 
 
-class GenerateCommand(sublime_plugin.WindowCommand, OctopressCommand):
+class GenerateCommand(OctopressCommand):
     def run(self):
-        self.exec_result = ""
+        self.check_str = ""
         self.file = ""
         self.check_str = "Successfully generated site:"
         self.exec_command("generate")
