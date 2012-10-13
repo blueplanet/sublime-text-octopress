@@ -80,7 +80,7 @@ class OctopressCommand(sublime_plugin.WindowCommand):
                 break
 
 
-class NewPostCommand(OctopressCommand):
+class OctopressNewPostCommand(OctopressCommand):
     def run(self):
         self.window.show_input_panel("Enter Name Of New Post", "", self.on_done, None, None)
 
@@ -91,7 +91,7 @@ class NewPostCommand(OctopressCommand):
         self.exec_command(command)
 
 
-class NewPageCommand(OctopressCommand):
+class OctopressNewPageCommand(OctopressCommand):
     def run(self):
         self.window.show_input_panel("Enter Name Of New Page", "", self.on_done, None, None)
 
@@ -102,7 +102,7 @@ class NewPageCommand(OctopressCommand):
         self.exec_command(command)
 
 
-class GenerateCommand(OctopressCommand):
+class OctopressGenerateCommand(OctopressCommand):
     def run(self):
         self.check_str = ""
         self.file = ""
