@@ -57,7 +57,7 @@ class OctopressCommand(sublime_plugin.WindowCommand):
             if data != "":
                 print data
 
-                if self.check_str and data.startswith(self.check_str):
+                if self.do_open_file and self.check_str and data.startswith(self.check_str):
                     self.file = data.split(os.linesep)[0].replace(self.check_str, "")
 
                 self.output += data
@@ -69,18 +69,9 @@ class OctopressCommand(sublime_plugin.WindowCommand):
                 sublime.set_timeout(functools.partial(self.finish), 0)
                 break
 
-    def read_stderr(self):
-        while True:
-            data = os.read(self.proc.stderr.fileno(), 2 ** 15)
-
-            if data != "":
-                print "octopress exec error : " + str(data)
-            else:
-                self.proc.stderr.close()
-                break
-
 
 class OctopressNewPostCommand(OctopressCommand):
+
     def run(self):
         self.window.show_input_panel("Enter Name Of New Post", "", self.on_done, None, None)
 
@@ -88,6 +79,7 @@ class OctopressNewPostCommand(OctopressCommand):
         command = " \"new_post[%s]\"" % text
 
         self.check_str = "Creating new post: "
+        self.do_open_file = True
         self.exec_command(command)
 
 
@@ -99,12 +91,29 @@ class OctopressNewPageCommand(OctopressCommand):
         command = " \"new_page[%s]\"" % text
 
         self.check_str = "Creating new page: "
+        self.do_open_file = True
         self.exec_command(command)
 
 
 class OctopressGenerateCommand(OctopressCommand):
     def run(self):
-        self.check_str = ""
         self.file = ""
         self.check_str = "Successfully generated site:"
+        self.do_open_file = False
         self.exec_command("generate")
+
+
+class OctopressDeployCommand(OctopressCommand):
+    def run(self):
+        self.file = ""
+        self.check_str = "^(## Github Pages deploy complete|OK)$"
+        self.do_open_file = False
+        self.exec_command("deploy")
+
+
+class OctopressGenerateAndDeployCommand(OctopressCommand):
+    def run(self):
+        self.file = ""
+        self.check_str = "^(## Github Pages deploy complete|OK)$"
+        self.do_open_file = False
+        self.exec_command("gen_deploy")

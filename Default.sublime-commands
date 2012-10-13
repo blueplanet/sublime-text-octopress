@@ -1,5 +1,7 @@
 [
-  { "caption": "Octopress: New Post", "command": "new_post" },
-  { "caption": "Octopress: New Page", "command": "new_page" },
-  { "caption": "Octopress: Generate", "command": "generate" }
+  { "caption": "Octopress: New Post", "command": "octopress_new_post" },
+  { "caption": "Octopress: New Page", "command": "octopress_new_page" },
+  { "caption": "Octopress: Generate", "command": "octopress_generate" },
+  { "caption": "Octopress: Deploy", "command": "octopress_deploy" },
+  { "caption": "Octopress: Generate And Deploy", "command": "octopress_generate_and_deploy" }
 ]
