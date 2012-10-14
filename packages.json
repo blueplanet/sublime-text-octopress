@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.2",
+  "packages": [
+    {
+      "name": "Octopress",
+      "description": "Execute commands of Octopress in Sublime Text 2.",
+      "author": "blueplanet",
+      "homepage": "https://github.com/blueplanet/sublime-text-2-octopress",
+      "last_modified": "2012-10-14 14:08:00",
+      "platforms": {
+        "osx": [
+          {
+            "version": "1.0.0",
+            "url": "https://github.com/blueplanet/sublime-text-2-octopress/zipball/master"
+          }
+        ],
+        "linux": [
+          {
+            "version": "1.0.0",
+            "url": "https://github.com/blueplanet/sublime-text-2-octopress/zipball/master"
+          }        
+        ]
+      }
+    }
+  ]
+}
