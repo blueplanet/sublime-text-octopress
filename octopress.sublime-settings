@@ -1,5 +1,6 @@
 {
-  // "octopress_path": "/Users/gyo/blog",
-  "octopress_path": "/tmp/blog",
-  "rake_command": "rake"
+  // path to your octopress
+  "octopress_path": "/you_octopress_path",
+  // true or false
+  "use_bundle": false
 }

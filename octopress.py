@@ -30,7 +30,13 @@ class OctopressCommand(sublime_plugin.WindowCommand):
         if self.octopress_path[-1] != os.sep:
             self.octopress_path += os.sep
 
-        self.rake_command = octo_set.get("rake_command")
+        self.rake_command = "rake"
+
+        use_bundle = octo_set.get("use_bundle")
+        if use_bundle:
+            self.rake_command = "bundle exec rake"
+
+        print self.rake_command
 
     def show_status_message(self, msg):
         sublime.status_message(msg)
