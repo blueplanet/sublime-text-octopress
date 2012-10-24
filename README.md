@@ -9,15 +9,15 @@
 ![image](https://lh3.googleusercontent.com/-yFnkYy_h9bo/UHlZwhPHNKI/AAAAAAAACCE/njGTdOMnoD8/s800/Screen%2520Shot%25202012-10-13%2520at%252020.33.03.png)
 
 ## Installation
+### From [Sublime Package Control](http://wbond.net/sublime_packages/package_control)
+Just open **"Package Control: Install Package"** in Command Palette and search for **"octopress"**
 
-### Download
-- From github
+### Or from github
+Clone or copy this repository into your Packages
+- OS X: ~/Library/Application Support/Sublime Text 2/Packages/
+- Linux: ~/.config/sublime-text-2/Packages/
 
-	Clone or copy this repository into your Packages
-   - OS X: ~/Library/Application Support/Sublime Text 2/Packages/
-   - Linux: ~/.config/sublime-text-2/Packages/
-
-### Change the setting to your env
+### And change the setting to your env
 ```
 {
   // path to your octopress
@@ -28,9 +28,7 @@
 ```
 
 ## Use
-
 You can execute following commands of `octopress` with `command_palette`
-
 - new_post
 - new_page
 - generate
