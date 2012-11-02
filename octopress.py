@@ -52,11 +52,11 @@ class OctopressCommand(sublime_plugin.WindowCommand):
                 self.window.open_file(self.octopress_path + self.file)
         else:
             sublime.status_message("")
-            sublime.error_message("Octopress exec failed. Please check octopress env, and try argin.\n\nYou can check exec log in sublime console.")
+            sublime.error_message("Octopress exec failed. Please check octopress env, and try again.\n\nYou can check exec log in sublime console.")
 
     def read_stdout(self):
         while True:
-            sublime.set_timeout(functools.partial(self.show_status_message, "octopress runing..."), 0)
+            sublime.set_timeout(functools.partial(self.show_status_message, "octopress running..."), 0)
 
             data = os.read(self.proc.stdout.fileno(), 2 ** 15)
 
