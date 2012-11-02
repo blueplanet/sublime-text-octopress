@@ -112,7 +112,7 @@ class OctopressGenerateCommand(OctopressCommand):
 class OctopressDeployCommand(OctopressCommand):
     def run(self):
         self.file = ""
-        self.check_str = "^(## Github Pages deploy complete|OK)$"
+        self.check_str = "(## Github Pages deploy complete|OK)"
         self.do_open_file = False
         self.exec_command("deploy")
 
@@ -120,6 +120,6 @@ class OctopressDeployCommand(OctopressCommand):
 class OctopressGenerateAndDeployCommand(OctopressCommand):
     def run(self):
         self.file = ""
-        self.check_str = "^(## Github Pages deploy complete|OK)$"
+        self.check_str = "(## Github Pages deploy complete|OK)"
         self.do_open_file = False
         self.exec_command("gen_deploy")
