@@ -52,11 +52,11 @@ class OctopressCommand(sublime_plugin.WindowCommand):
                 self.window.open_file(self.octopress_path + self.file)
         else:
             sublime.status_message("")
-            sublime.error_message("Octopress exec failed. Please check octopress env, and try argin.\n\nYou can check exec log in sublime console.")
+            sublime.error_message("Octopress exec failed. Please check octopress env, and try again.\n\nYou can check exec log in sublime console.")
 
     def read_stdout(self):
         while True:
-            sublime.set_timeout(functools.partial(self.show_status_message, "octopress runing..."), 0)
+            sublime.set_timeout(functools.partial(self.show_status_message, "octopress running..."), 0)
 
             data = os.read(self.proc.stdout.fileno(), 2 ** 15)
 
@@ -112,7 +112,7 @@ class OctopressGenerateCommand(OctopressCommand):
 class OctopressDeployCommand(OctopressCommand):
     def run(self):
         self.file = ""
-        self.check_str = "^(## Github Pages deploy complete|OK)$"
+        self.check_str = "(## Github Pages deploy complete|OK)"
         self.do_open_file = False
         self.exec_command("deploy")
 
@@ -120,6 +120,6 @@ class OctopressDeployCommand(OctopressCommand):
 class OctopressGenerateAndDeployCommand(OctopressCommand):
     def run(self):
         self.file = ""
-        self.check_str = "^(## Github Pages deploy complete|OK)$"
+        self.check_str = "(## Github Pages deploy complete|OK)"
         self.do_open_file = False
         self.exec_command("gen_deploy")

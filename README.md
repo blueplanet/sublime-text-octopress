@@ -17,7 +17,7 @@ Clone or copy this repository into your Packages
 - OS X: ~/Library/Application Support/Sublime Text 2/Packages/
 - Linux: ~/.config/sublime-text-2/Packages/
 
-### And change the setting to your env
+### And change the setting to your env (Accessible via Preferences > Package Settings > Octopress > Settings - User)
 ```
 {
   // path to your octopress
