@@ -30,11 +30,14 @@ class OctopressCommand(sublime_plugin.WindowCommand):
         if self.octopress_path[-1] != os.sep:
             self.octopress_path += os.sep
 
-        self.rake_command = "rake"
+        pre_rake = octo_set.get("octopress_cmd_before_rake")
+        if (pre_rake != ''):
+            pre_rake += '; ';
+        self.rake_command = pre_rake + "rake"
 
         use_bundle = octo_set.get("use_bundle")
         if use_bundle:
-            self.rake_command = "bundle exec rake"
+            self.rake_command = pre_rake + "bundle exec rake"
 
         print self.rake_command
 

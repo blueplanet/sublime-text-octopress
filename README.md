@@ -3,7 +3,7 @@
 ## WARNING
 
 - Only supports OS X, linux
-- You must start the `Sublime Text 2` from the terminal
+- You must start the `Sublime Text 2` from the terminal (or configure *octopress_cmd_before_rake* in your settings)
 
 ## Preview
 ![image](https://lh3.googleusercontent.com/-yFnkYy_h9bo/UHlZwhPHNKI/AAAAAAAACCE/njGTdOMnoD8/s800/Screen%2520Shot%25202012-10-13%2520at%252020.33.03.png)
@@ -21,7 +21,9 @@ Clone or copy this repository into your Packages
 ```
 {
   // path to your octopress
-  "octopress_path": "/you_octopress_path",
+  "octopress_path": "/you_octopress_path",	
+  // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
+  "octopress_cmd_before_rake" : "source ~/.bash_profile",
   // true or false
   "use_bundle": false
 }
