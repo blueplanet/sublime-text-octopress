@@ -32,7 +32,7 @@ class OctopressCommand(sublime_plugin.WindowCommand):
 
         pre_rake = octo_set.get("octopress_cmd_before_rake")
         if (pre_rake != ''):
-            pre_rake += '; ';
+            pre_rake += '; '
         self.rake_command = pre_rake + "rake"
 
         use_bundle = octo_set.get("use_bundle")
