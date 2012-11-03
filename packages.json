@@ -10,13 +10,13 @@
         "platforms": {
         "osx": [
             {
-            "version": "1.0.0",
+            "version": "1.1.0",
             "url": "https://nodeload.github.com/blueplanet/sublime-text-2-octopress/zipball/master"
             }
         ],
         "linux": [
             {
-            "version": "1.0.0",
+            "version": "1.1.0",
             "url": "https://nodeload.github.com/blueplanet/sublime-text-2-octopress/zipball/master"
             }        
         ]

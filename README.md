@@ -36,3 +36,9 @@ You can execute following commands of `octopress` with `command_palette`
 - generate
 - deploy
 - gen_deploy
+
+## History
+
+### Ver 1.1
+- Add setting menu
+- Add `octopress_cmd_before_rake`
