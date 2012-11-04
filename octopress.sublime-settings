@@ -3,6 +3,8 @@
   "octopress_path": "/you_octopress_path",
     // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
   "octopress_cmd_before_rake" : "",
+  // set to generate, deploy or generate_and_deploy if you wish to have your changes generated into the /public folder and/or deployed upon file save
+  "octopress_onsave_action": "",
   // true or false
   "use_bundle": false
 }

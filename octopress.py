@@ -126,3 +126,27 @@ class OctopressGenerateAndDeployCommand(OctopressCommand):
         self.check_str = "(## Github Pages deploy complete|OK)"
         self.do_open_file = False
         self.exec_command("gen_deploy")
+
+class OctopressAutoGenerate(sublime_plugin.EventListener):
+    def on_post_save(self, view):
+        global_settings = sublime.load_settings(__name__ + '.sublime-settings')
+        octo_set = sublime.load_settings("octopress.sublime-settings")
+
+        self.octopress_onsave_action = octo_set.get("octopress_onsave_action")
+        self.octopress_path = octo_set.get("octopress_path")
+
+        valid_actions = ["", "generate", "deploy", "generate_and_deploy"]
+        if (self.octopress_onsave_action not in valid_actions):
+            # No valid on_save action present, abort
+            sublime.error_message("Given action: '" + self.octopress_onsave_action + "' is not valid")
+            return
+
+        if (self.octopress_onsave_action == ""):
+            # They don't want an onsave, so abort
+            return
+
+        if not re.search(self.octopress_path + ".*", view.file_name()):
+            # current file being saved is not in the octopress path
+            return
+
+        view.window().run_command('octopress_' + self.octopress_onsave_action)

@@ -24,6 +24,8 @@ Clone or copy this repository into your Packages
   "octopress_path": "/you_octopress_path",	
   // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
   "octopress_cmd_before_rake" : "source ~/.bash_profile",
+  // set to generate, deploy or generate_and_deploy if you wish to have your changes generated into the /public folder and/or deployed upon file save
+  "octopress_onsave_action": "",
   // true or false
   "use_bundle": false
 }
@@ -37,6 +39,7 @@ You can execute following commands of `octopress` with `command_palette`
 - deploy
 - gen_deploy
 
+You can enable auto-generate or auto-deploy by setting the ```octopress_onsave_action``` variable to "generate" or "generate_and_deploy". This will only trigger if the file you're saving is inside your ```octopress_path```.
 ## History
 
 ### Ver 1.1
