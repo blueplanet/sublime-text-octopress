@@ -156,8 +156,9 @@ class OctopressOpenExistingPostCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         octo_set = sublime.load_settings("octopress.sublime-settings")
         self.octopress_path = octo_set.get("octopress_path")
+        self.posts_dir = octo_set.get("octopress_posts_dir")
 
-        files = [f for f in os.listdir(self.octopress_path + "/source/_posts")]
+        files = [f for f in os.listdir(self.octopress_path + "/source/" + self.posts_dir)]
         files.reverse()
         self.quick_panel_items = files
         self.view.window().show_quick_panel(self.quick_panel_items, self.on_done, sublime.MONOSPACE_FONT)
@@ -165,15 +166,16 @@ class OctopressOpenExistingPostCommand(sublime_plugin.TextCommand):
     def on_done(self, index):
         if (index == -1):
             return
-        sublime.active_window().run_command("open_file", {"file":self.octopress_path + "/source/_posts/" + self.quick_panel_items[index]})
+        sublime.active_window().run_command("open_file", {"file":self.octopress_path + "/source/" + self.posts_dir + "/" + self.quick_panel_items[index]})
         return
 
 class OctopressOpenExistingPageCommand(OctopressOpenExistingPostCommand):
     def run(self, edit):
         octo_set = sublime.load_settings("octopress.sublime-settings")
         self.octopress_path = octo_set.get("octopress_path")
-
-        files = glob.glob(self.octopress_path + "/source/*/index.markdown");
+        self.page_extension = octo_set.get("octopress_page_extension")
+        
+        files = glob.glob(self.octopress_path + "/source/*/index." + self.page_extension);
         files.reverse()
         self.quick_panel_items = []
         for file in files:
