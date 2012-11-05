@@ -5,6 +5,7 @@ import sublime
 import sublime_plugin
 import subprocess
 import thread
+import glob
 
 
 class OctopressCommand(sublime_plugin.WindowCommand):
@@ -150,3 +151,39 @@ class OctopressAutoGenerate(sublime_plugin.EventListener):
             return
 
         view.window().run_command('octopress_' + self.octopress_onsave_action)
+
+class OctopressOpenExistingPostCommand(sublime_plugin.TextCommand):
+    def run(self, edit):
+        octo_set = sublime.load_settings("octopress.sublime-settings")
+        self.octopress_path = octo_set.get("octopress_path")
+        self.posts_dir = octo_set.get("octopress_posts_dir")
+
+        files = [f for f in os.listdir(self.octopress_path + "/source/" + self.posts_dir)]
+        files.reverse()
+        self.quick_panel_items = files
+        self.view.window().show_quick_panel(self.quick_panel_items, self.on_done, sublime.MONOSPACE_FONT)
+
+    def on_done(self, index):
+        if (index == -1):
+            return
+        sublime.active_window().run_command("open_file", {"file":self.octopress_path + "/source/" + self.posts_dir + "/" + self.quick_panel_items[index]})
+        return
+
+class OctopressOpenExistingPageCommand(OctopressOpenExistingPostCommand):
+    def run(self, edit):
+        octo_set = sublime.load_settings("octopress.sublime-settings")
+        self.octopress_path = octo_set.get("octopress_path")
+        self.page_extension = octo_set.get("octopress_page_extension")
+        
+        files = glob.glob(self.octopress_path + "/source/*/index." + self.page_extension);
+        files.reverse()
+        self.quick_panel_items = []
+        for file in files:
+            self.quick_panel_items.append(file.replace(self.octopress_path + "/source/", ""))
+        self.view.window().show_quick_panel(self.quick_panel_items, self.on_done, sublime.MONOSPACE_FONT)
+
+    def on_done(self, index):
+        if (index == -1):
+            return
+        sublime.active_window().run_command("open_file", {"file":self.octopress_path + "/source/" + self.quick_panel_items[index]})
+        return

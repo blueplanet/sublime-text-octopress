@@ -1,10 +1,19 @@
 {
   // path to your octopress
   "octopress_path": "/you_octopress_path",
+  
     // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
   "octopress_cmd_before_rake" : "",
+  
   // set to generate, deploy or generate_and_deploy if you wish to have your changes generated into the /public folder and/or deployed upon file save
   "octopress_onsave_action": "",
+
+  // set to the extension of all new pages. This should be the same as in your Rakefile setting for new_page_ext
+  "octopress_page_extension": "markdown",
+  
+  // set to the extension of all new posts. This should be the same as in your Rakefile setting for posts_dir
+  "octopress_posts_dir": "_posts",
+  
   // true or false
   "use_bundle": false
 }

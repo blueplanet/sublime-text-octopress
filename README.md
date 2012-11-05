@@ -34,7 +34,9 @@ Clone or copy this repository into your Packages
 ## Use
 You can execute following commands of `octopress` with `command_palette`
 - new_post
+- edit_existing_post
 - new_page
+- edit_existing_page
 - generate
 - deploy
 - gen_deploy
