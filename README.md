@@ -43,7 +43,10 @@ You can execute following commands of `octopress` with `command_palette`
 
 You can enable auto-generate or auto-deploy by setting the ```octopress_onsave_action``` variable to "generate" or "generate_and_deploy". This will only trigger if the file you're saving is inside your ```octopress_path```.
 ## History
+### Ver 2012.11.08
+- Add auto generate (and or deploy) 
+- Add find and edit existing pages/posts
 
-### Ver 1.1
+### Ver 2012.11.03
 - Add setting menu
 - Add `octopress_cmd_before_rake`
