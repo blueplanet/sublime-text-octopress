@@ -1,8 +1,11 @@
 {
   // path to your octopress
   "octopress_path": "/you_octopress_path",
+
+  // the shell to run commands with
+  "octopress_shell_executable": "/bin/sh",
   
-    // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
+  // command to run before calling rake, eg source ~/.bash_profile to set up your local environment inc paths to ruby, rake etc.
   "octopress_cmd_before_rake" : "",
   
   // set to generate, deploy or generate_and_deploy if you wish to have your changes generated into the /public folder and/or deployed upon file save
