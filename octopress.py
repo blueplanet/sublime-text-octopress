@@ -20,7 +20,7 @@ class OctopressCommand(sublime_plugin.WindowCommand):
 
         exec_command = "%s %s" % (self.rake_command, command)
 
-        self.proc = subprocess.Popen(exec_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+        self.proc = subprocess.Popen(exec_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, executable=self.shell_executable)
 
         thread.start_new_thread(self.read_stdout, ())
 
@@ -39,6 +39,12 @@ class OctopressCommand(sublime_plugin.WindowCommand):
         use_bundle = octo_set.get("use_bundle")
         if use_bundle:
             self.rake_command = pre_rake + "bundle exec rake"
+            
+        shell_exec = octo_set.get("octopress_shell_executable")
+        if shell_exec == '':
+            shell_exec = '/bin/sh'
+
+        self.shell_executable = shell_exec
 
         print self.rake_command
 
