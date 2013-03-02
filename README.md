@@ -31,6 +31,20 @@ Clone or copy this repository into your Packages
 }
 ```
 
+### Setting Example
+
+For Rbenv or RVM
+
+```
+...
+// If you use zsh, you can set to "/bin/zsh"
+"octopress_shell_executable": "/bin/bash",
+
+// If you use zsh, you can set to "source ~/.zshrc"
+"octopress_cmd_before_rake" : "source ~/.bash_profile",
+...
+```
+
 ## Use
 You can execute following commands of `octopress` with `command_palette`
 - new_post
