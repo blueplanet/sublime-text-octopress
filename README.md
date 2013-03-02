@@ -45,6 +45,8 @@ For Rbenv or RVM
 ...
 ```
 
+### In the case of an error, please see the [RVM or Rbenv errors](https://github.com/blueplanet/sublime-text-2-octopress/issues/5#issuecomment-14313965)
+
 ## Use
 You can execute following commands of `octopress` with `command_palette`
 - new_post
