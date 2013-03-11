@@ -54,15 +54,32 @@ class OctopressCommand(sublime_plugin.WindowCommand):
     def finish(self):
         finded = re.search(self.check_str, self.output)
 
-        if finded:
-            sublime.status_message("octopress exec successfully finished.")
-
-            if self.file:
-                print "Open File : " + self.file
-                self.window.open_file(self.octopress_path + self.file)
+        if self.DoubleSearch == 1:
+            finded2 = re.search(self.check_str2, self.output)  
+            if finded and finded2:
+                sublime.status_message("octopress exec successfully finished.\n\nGenerated and deployed without errors.")
+            else:
+                sublime.status_message("")
+                sublime.error_message("Octopress exec failed. Please check octopress env, and try again.\n\nYou can check exec log in sublime console.") 
+        elif self.DoubleSearch == 2:
+            finded2 = re.search(self.check_str2, self.output) 
+            if finded:
+                sublime.status_message("octopress exec successfully finished.\n\nDeployed without any errors.")
+            elif finded2:
+                sublime.status_message("octopress exec successfully finished.\n\nEverything is up-to-date.")
+            else:
+                sublime.status_message("")
+                sublime.error_message("Octopress exec failed. Please check octopress env, and try again.\n\nYou can check exec log in sublime console.")
         else:
-            sublime.status_message("")
-            sublime.error_message("Octopress exec failed. Please check octopress env, and try again.\n\nYou can check exec log in sublime console.")
+            if finded:
+                sublime.status_message("octopress exec successfully finished.")
+
+                if self.file:
+                    print "Open File : " + self.file
+                    self.window.open_file(self.octopress_path + self.file)
+            else:
+                sublime.status_message("")
+                sublime.error_message("Octopress exec failed. Please check octopress env, and try again.\n\nYou can check exec log in sublime console.")
 
     def read_stdout(self):
         while True:
@@ -95,6 +112,7 @@ class OctopressNewPostCommand(OctopressCommand):
         command = " \"new_post[%s]\"" % text
 
         self.check_str = "Creating new post: "
+        self.DoubleSearch = 0
         self.do_open_file = True
         self.exec_command(command)
 
@@ -107,6 +125,7 @@ class OctopressNewPageCommand(OctopressCommand):
         command = " \"new_page[%s]\"" % text
 
         self.check_str = "Creating new page: "
+        self.DoubleSearch = 0
         self.do_open_file = True
         self.exec_command(command)
 
@@ -115,6 +134,7 @@ class OctopressGenerateCommand(OctopressCommand):
     def run(self):
         self.file = ""
         self.check_str = "Successfully generated site:"
+        self.DoubleSearch = 0
         self.do_open_file = False
         self.exec_command("generate")
 
@@ -122,7 +142,9 @@ class OctopressGenerateCommand(OctopressCommand):
 class OctopressDeployCommand(OctopressCommand):
     def run(self):
         self.file = ""
-        self.check_str = "(## Github Pages deploy complete|OK)"
+        self.check_str = "To"
+        self.check_str2 = "Everything up-to-date"
+        self.DoubleSearch = 2
         self.do_open_file = False
         self.exec_command("deploy")
 
@@ -130,7 +152,9 @@ class OctopressDeployCommand(OctopressCommand):
 class OctopressGenerateAndDeployCommand(OctopressCommand):
     def run(self):
         self.file = ""
-        self.check_str = "(## Github Pages deploy complete|OK)"
+        self.DoubleSearch = 1
+        self.check_str = "To"
+        self.check_str2 = "Successfully generated site:"
         self.do_open_file = False
         self.exec_command("gen_deploy")
 
