@@ -60,6 +60,8 @@ You can execute following commands of `octopress` with `command_palette`
 You can enable auto-generate or auto-deploy by setting the ```octopress_onsave_action``` variable to "generate" or "generate_and_deploy". This will only trigger if the file you're saving is inside your ```octopress_path```.
 
 ## History
+### Ver 2013.03.13
+- Bug fix
 
 ### Ver 2013.02.02
 - Add `octopress_shell_executable`
