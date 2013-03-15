@@ -7,6 +7,13 @@ import subprocess
 import thread
 import glob
 
+class StopPreview(sublime_plugin.TextCommand):
+    def run(self, edit):
+        proc = subprocess.Popen(["ps aux | grep [r]ackup | awk '{print $2}' | xargs kill -9"], stdout=subprocess.PIPE, shell=True)
+        proc = subprocess.Popen(["ps aux | grep [j]ekyl | awk '{print $2}' | xargs kill -9"], stdout=subprocess.PIPE, shell=True)
+        proc = subprocess.Popen(["ps aux | grep [c]ompas | awk '{print $2}' | xargs kill -9"], stdout=subprocess.PIPE, shell=True)
+        print "Preview Stopped!"
+
 
 class OctopressCommand(sublime_plugin.WindowCommand):
 
@@ -157,6 +164,16 @@ class OctopressGenerateAndDeployCommand(OctopressCommand):
         self.check_str2 = "Successfully generated site:"
         self.do_open_file = False
         self.exec_command("gen_deploy")
+
+class OctopressStartPreviewCommand(OctopressCommand):
+    def run(self):
+        print "Starting Preview..."
+        self.file = ""
+        self.DoubleSearch = 0
+        self.check_str = "Compass is watching for changes."
+        self.do_open_file = False
+        self.exec_command("preview")
+
 
 class OctopressAutoGenerate(sublime_plugin.EventListener):
     def on_post_save(self, view):
