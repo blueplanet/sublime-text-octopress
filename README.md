@@ -6,7 +6,7 @@
 - You must start the `Sublime Text 2` from the terminal (or configure *octopress_cmd_before_rake* in your settings)
 
 ## Preview
-![image](https://lh3.googleusercontent.com/-yFnkYy_h9bo/UHlZwhPHNKI/AAAAAAAACCE/njGTdOMnoD8/s800/Screen%2520Shot%25202012-10-13%2520at%252020.33.03.png)
+![image](http://d.pr/i/WUn+)
 
 ## Installation
 ### From [Sublime Package Control](http://wbond.net/sublime_packages/package_control)
@@ -56,10 +56,21 @@ You can execute following commands of `octopress` with `command_palette`
 - generate
 - deploy
 - gen_deploy
+- preview
+- isolate (current post)
+- integrate
 
 You can enable auto-generate or auto-deploy by setting the ```octopress_onsave_action``` variable to "generate" or "generate_and_deploy". This will only trigger if the file you're saving is inside your ```octopress_path```.
 
 ## History
+### Ver 2013.03.19
+- Added "Isolate" and "Integrate" support
+
+### Ver 2013.03.15
+- Added "Preview" support
+
+### Ver 2013.03.13
+- Bug fix
 
 ### Ver 2013.02.02
 - Add `octopress_shell_executable`
