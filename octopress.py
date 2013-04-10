@@ -7,8 +7,10 @@ import subprocess
 import thread
 import glob
 
+
 class StopPreview(sublime_plugin.TextCommand):
     def run(self, edit):
+        print "\nStopping preview server..."
         proc = subprocess.Popen(["ps aux | grep [r]ackup | awk '{print $2}' | xargs kill -9"], stdout=subprocess.PIPE, shell=True)
         proc = subprocess.Popen(["ps aux | grep [j]ekyl | awk '{print $2}' | xargs kill -9"], stdout=subprocess.PIPE, shell=True)
         proc = subprocess.Popen(["ps aux | grep [c]ompas | awk '{print $2}' | xargs kill -9"], stdout=subprocess.PIPE, shell=True)
@@ -31,7 +33,17 @@ class OctopressCommand(sublime_plugin.WindowCommand):
 
         thread.start_new_thread(self.read_stdout, ())
 
+    def set_filename(self, view, filename):
+        return os.path.basename(view.file_name())
+        
+
+    def check_current(self, view):
+        new = self.octopress_path + "/source/_posts"
+        print new
+        return re.search(self.octopress_path + "/source/_posts/.*", view.file_name())
+
     def load_config(self):
+
         octo_set = sublime.load_settings("octopress.sublime-settings")
 
         self.octopress_path = octo_set.get("octopress_path")
@@ -116,6 +128,7 @@ class OctopressNewPostCommand(OctopressCommand):
         self.window.show_input_panel("Enter Name Of New Post", "", self.on_done, None, None)
 
     def on_done(self, text):
+        print "\nCreating new post..."
         command = " \"new_post[%s]\"" % text
 
         self.check_str = "Creating new post: "
@@ -129,6 +142,7 @@ class OctopressNewPageCommand(OctopressCommand):
         self.window.show_input_panel("Enter Name Of New Page", "", self.on_done, None, None)
 
     def on_done(self, text):
+        print "\nCreating new page..."
         command = " \"new_page[%s]\"" % text
 
         self.check_str = "Creating new page: "
@@ -139,6 +153,7 @@ class OctopressNewPageCommand(OctopressCommand):
 
 class OctopressGenerateCommand(OctopressCommand):
     def run(self):
+        print "\nStarting to generate..."
         self.file = ""
         self.check_str = "Successfully generated site:"
         self.DoubleSearch = 0
@@ -148,6 +163,7 @@ class OctopressGenerateCommand(OctopressCommand):
 
 class OctopressDeployCommand(OctopressCommand):
     def run(self):
+        print "\nStarting to deploy..."
         self.file = ""
         self.check_str = "To"
         self.check_str2 = "Everything up-to-date"
@@ -158,6 +174,7 @@ class OctopressDeployCommand(OctopressCommand):
 
 class OctopressGenerateAndDeployCommand(OctopressCommand):
     def run(self):
+        print "\nStrating to generate and deploy..."
         self.file = ""
         self.DoubleSearch = 1
         self.check_str = "To"
@@ -167,13 +184,45 @@ class OctopressGenerateAndDeployCommand(OctopressCommand):
 
 class OctopressStartPreviewCommand(OctopressCommand):
     def run(self):
-        print "Starting Preview..."
+        print "\nStarting Preview server..."
         self.file = ""
         self.DoubleSearch = 0
         self.check_str = "Compass is watching for changes."
         self.do_open_file = False
         self.exec_command("preview")
 
+
+class OctopressIsolate(OctopressCommand):
+    
+    def run(self):
+        print "\n"
+        view = self.window.active_view()
+        global_settings = sublime.load_settings(__name__ + '.sublime-settings')
+        octo_set = sublime.load_settings("octopress.sublime-settings")
+        self.octopress_onsave_action = octo_set.get("octopress_onsave_action")
+        self.octopress_path = octo_set.get("octopress_path")
+        if self.check_current(view):       
+            filename = None
+            filename = self.set_filename(view, filename)
+            command = " isolate[\"%s\"]" % filename
+            print "\nIsolating..."
+            self.file = ""
+            self.DoubleSearch = 0
+            self.check_str = ""
+            self.do_open_file = False
+            self.exec_command(command)
+        else:
+            sublime.error_message("Not a post file")
+
+
+class OctopressIntegrate(OctopressCommand):
+    def run(self):
+        print "\nIntegrating..."
+        self.file = ""
+        self.DoubleSearch = 0
+        self.check_str = ""
+        self.do_open_file = False
+        self.exec_command("integrate")
 
 class OctopressAutoGenerate(sublime_plugin.EventListener):
     def on_post_save(self, view):

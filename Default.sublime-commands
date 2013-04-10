@@ -10,5 +10,8 @@
   { "caption": "Octopress: Generate And Deploy", "command": "octopress_generate_and_deploy" },
 
   { "caption": "Octopress: Preview Start", "command": "octopress_start_preview" },
-  { "caption": "Octopress: Preview Stop", "command": "stop_preview" }
+  { "caption": "Octopress: Preview Stop", "command": "stop_preview" },
+
+  { "caption": "Octopress: Isolate", "command": "octopress_isolate" },
+  { "caption": "Octopress: Integrate", "command": "octopress_integrate"}
 ]
