@@ -1,26 +1,26 @@
 {
     "schema_version": "1.2",
     "packages": [
-    {
-        "name": "Octopress",
-        "description": "Execute commands of Octopress in Sublime Text 2.",
-        "author": "blueplanet",
-        "homepage": "https://github.com/blueplanet/sublime-text-2-octopress",
-        "last_modified": "2013-08-29 11:25:00",
-        "platforms": {
-        "osx": [
-            {
-            "version": "2013.08.29",
-            "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master"
+        {
+            "name": "Octopress",
+            "description": "Execute commands of Octopress in Sublime Text 2.",
+            "author": "blueplanet",
+            "homepage": "https://github.com/blueplanet/sublime-text-2-octopress",
+            "last_modified": "2013-08-29 11:25:00",
+            "platforms": {
+                "osx": [
+                    {
+                    "version": "2013.08.29",
+                    "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master"
+                    }
+                ],
+                "linux": [
+                    {
+                    "version": "2013.08.29",
+                    "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master"
+                    }
+                ]
             }
-        ],
-        "linux": [
-            {
-            "version": "2013.08.29",
-            "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master"
-            }
-        ]
         }
-    }
     ]
 }
