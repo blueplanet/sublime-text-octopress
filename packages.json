@@ -6,17 +6,17 @@
         "description": "Execute commands of Octopress in Sublime Text 2.",
         "author": "blueplanet",
         "homepage": "https://github.com/blueplanet/sublime-text-2-octopress",
-        "last_modified": "2013-03-19 17:08:00",
+        "last_modified": "2013-08-29 11:25:00",
         "platforms": {
         "osx": [
             {
-            "version": "2013.03.19",
+            "version": "2013.08.29",
             "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master'
             }
         ],
         "linux": [
             {
-            "version": "2013.03.19",
+            "version": "2013.08.29",
             "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master'
             }
         ]
