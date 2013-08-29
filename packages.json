@@ -1,5 +1,5 @@
 {
-    "schema_version": "1.2",
+    "schema_version": "2.0",
     "packages": [
     {
         "name": "Octopress",
@@ -11,13 +11,13 @@
         "osx": [
             {
             "version": "2013.03.19",
-            "url": "https://nodeload.github.com/blueplanet/sublime-text-2-octopress/zipball/master"
+            "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master'
             }
         ],
         "linux": [
             {
             "version": "2013.03.19",
-            "url": "https://nodeload.github.com/blueplanet/sublime-text-2-octopress/zipball/master"
+            "url": "https://codeload.github.com/blueplanet/sublime-text-2-octopress/zip/master'
             }
         ]
         }
