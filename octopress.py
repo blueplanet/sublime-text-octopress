@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import functools
 import os
 import re
@@ -10,7 +11,7 @@ except ImportError:
     import _thread as thread
 
 import glob
-
+import sys
 
 class StopPreview(sublime_plugin.TextCommand):
     def run(self, edit):
@@ -109,10 +110,8 @@ class OctopressCommand(sublime_plugin.WindowCommand):
             sublime.set_timeout(functools.partial(self.show_status_message, "octopress running..."), 0)
 
             data = os.read(self.proc.stdout.fileno(), 2 ** 15)
-            try:
-                data = data.decode()
-            except AttributeError:
-                pass
+            if sys.version[0]=='3':
+                data = data.decode(sys.getdefaultencoding())
                 
             if data != "":
                 print(data)
@@ -120,7 +119,7 @@ class OctopressCommand(sublime_plugin.WindowCommand):
                 if self.do_open_file and self.check_str and data.startswith(self.check_str):
                     self.file = data.split(os.linesep)[0].replace(self.check_str, "")
 
-                self.output += data
+                self.output += data 
             else:
                 self.proc.stdout.close()
 
@@ -163,7 +162,7 @@ class OctopressGenerateCommand(OctopressCommand):
     def run(self):
         print("\nStarting to generate...")
         self.file = ""
-        self.check_str = "Successfully generated site:"
+        self.check_str = u'Successfully generated site:'
         self.DoubleSearch = 0
         self.do_open_file = False
         self.exec_command("generate")
@@ -173,8 +172,8 @@ class OctopressDeployCommand(OctopressCommand):
     def run(self):
         print("\nStarting to deploy...")
         self.file = ""
-        self.check_str = "To"
-        self.check_str2 = "Everything up-to-date"
+        self.check_str = u"To"
+        self.check_str2 = u"Everything up-to-date"
         self.DoubleSearch = 2
         self.do_open_file = False
         self.exec_command("deploy")
@@ -185,8 +184,8 @@ class OctopressGenerateAndDeployCommand(OctopressCommand):
         print("\nStrating to generate and deploy...")
         self.file = ""
         self.DoubleSearch = 1
-        self.check_str = "To"
-        self.check_str2 = "Successfully generated site:"
+        self.check_str = u"To"
+        self.check_str2 = u"Successfully generated site:"
         self.do_open_file = False
         self.exec_command("gen_deploy")
 
@@ -195,7 +194,7 @@ class OctopressStartPreviewCommand(OctopressCommand):
         print("\nStarting Preview server...")
         self.file = ""
         self.DoubleSearch = 0
-        self.check_str = "Compass is watching for changes."
+        self.check_str = u"Compass is watching for changes."
         self.do_open_file = False
         self.exec_command("preview")
 
@@ -216,7 +215,7 @@ class OctopressIsolate(OctopressCommand):
             print("\nIsolating...")
             self.file = ""
             self.DoubleSearch = 0
-            self.check_str = ""
+            self.check_str = u""
             self.do_open_file = False
             self.exec_command(command)
         else:
@@ -228,7 +227,7 @@ class OctopressIntegrate(OctopressCommand):
         print("\nIntegrating...")
         self.file = ""
         self.DoubleSearch = 0
-        self.check_str = ""
+        self.check_str = u""
         self.do_open_file = False
         self.exec_command("integrate")
 
