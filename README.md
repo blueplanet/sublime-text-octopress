@@ -1,12 +1,9 @@
-# Sublime Text 2 Octopress
+# Sublime Text Octopress
 
 ## WARNING
 
 - Only supports OS X, linux
 - You must start the `Sublime Text 2` from the terminal (or configure *octopress_cmd_before_rake* in your settings)
-
-## Preview
-![image](http://d.pr/i/WUn+)
 
 ## Installation
 ### From [Sublime Package Control](http://wbond.net/sublime_packages/package_control)
@@ -63,6 +60,10 @@ You can execute following commands of `octopress` with `command_palette`
 You can enable auto-generate or auto-deploy by setting the ```octopress_onsave_action``` variable to "generate" or "generate_and_deploy". This will only trigger if the file you're saving is inside your ```octopress_path```.
 
 ## History
+### Ver 2014.10.23
+- Update schema of package.json to 2.0
+- Add support to Sublime Text 3
+
 ### Ver 2013.08.29
 - Update schema of package.json to Ver 2.0.
 
