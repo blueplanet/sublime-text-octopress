@@ -47,24 +47,32 @@ class OctopressCommand(sublime_plugin.WindowCommand):
         print(new)
         return re.search(self.octopress_path + "/source/_posts/.*", view.file_name())
 
-    def load_config(self):
-
+    def if_default(self,key):
         octo_set = sublime.load_settings("octopress.sublime-settings")
+        beno_set = self.window.active_view().settings()
+        if beno_set.get(key):
+            return beno_set.get(key)
+        else:
+            return octo_set.get(key)
 
-        self.octopress_path = octo_set.get("octopress_path")
+    def load_config(self):
+            
+        self.octopress_path = self.if_default("octopress_path")
+        pre_rake = self.if_default("octopress_cmd_before_rake")
+        use_bundle = self.if_default("use_bundle")
+        shell_exec = self.if_default("octopress_shell_executable")
+
         if self.octopress_path[-1] != os.sep:
             self.octopress_path += os.sep
 
-        pre_rake = octo_set.get("octopress_cmd_before_rake")
         if (pre_rake != ''):
             pre_rake += '; '
+
         self.rake_command = pre_rake + "rake"
 
-        use_bundle = octo_set.get("use_bundle")
         if use_bundle:
             self.rake_command = pre_rake + "bundle exec rake"
             
-        shell_exec = octo_set.get("octopress_shell_executable")
         if shell_exec == '':
             shell_exec = '/bin/sh'
 
