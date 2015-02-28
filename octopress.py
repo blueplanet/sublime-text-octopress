@@ -189,7 +189,7 @@ class OctopressDeployCommand(OctopressCommand):
 
 class OctopressGenerateAndDeployCommand(OctopressCommand):
     def run(self):
-        print("\nStrating to generate and deploy...")
+        print("\nStarting to generate and deploy...")
         self.file = ""
         self.DoubleSearch = 1
         self.check_str = u"To"
